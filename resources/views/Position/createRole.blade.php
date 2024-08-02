@@ -3,7 +3,7 @@
         <a href="{{ route('workArea.administrator') }}" class="btn btn-primary">Back to WORK AREA</a>
     </div>
     <div>
-        <form method="post" action="{{ route('position.createDepartmentPost') }}">
+        <form method="post" action="{{ route('position.createRolePost') }}">
             @csrf
             <div>
                 <div class="labelDiv"><label>Name</label></div>

@@ -3,6 +3,7 @@
     <div class="user-info">
         <p>Welcome, {{ auth()->user()->first_name }} (ID: {{ auth()->user()->id }})</p>
         <a href="{{ route('home') }}" class="btn btn-primary">Back to home page</a>
+        <a href="{{ route('user.editUserGet') }}" class="btn btn-primary">Edit personal data</a>
         <form method="POST" action="{{ route('user.logoutUser') }}" style="display:inline;">
             @csrf
             <button type="submit" class="btn btn-danger">Logout</button>
@@ -10,7 +11,13 @@
         <h2>Available vacancies:</h2>
         <ul>
             @foreach ($positions as $position)
-                <li>{{ $position->name }} (Salary: {{ $position->salary }})</li>
+                <li>
+                    {{ $position->name }} (Salary: {{ $position->salary }})
+                    <form method="GET" action="{{ route('position.showDetails', $position->id) }}" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-info btn-sm">More Details</button>
+                    </form>
+                </li>
             @endforeach
         </ul>
     </div>

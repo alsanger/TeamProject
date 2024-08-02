@@ -130,9 +130,52 @@ class UserController extends Controller
 
         return redirect()->route('home');
     }
+    public function editUserGet(): \Illuminate\View\View
+    {
+        $user = Auth::user();
+        $knowledges = Knowledge::all();
+        return view('user.editUser', compact('user', 'knowledges'));
+    }
+    public function editUserPost(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'login' => 'required|min:3|max:20|unique:users,login,' . $user->id,
+            'password' => 'nullable|min:6|confirmed',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'required|numeric',
+            'image_link' => 'required',
+            'knowledge_ids' => 'array',
+        ]);
+
+        // Обновление данных пользователя
+        $user->update([
+            'login' => $request->input('login'),
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'image_link' => $request->input('image_link'),
+        ]);
+
+        // Обновление пароля при необходимости
+        if ($request->filled('password')) {
+            $user->update(['password' => Hash::make($request->input('password'))]);
+        }
+
+        // Обновление знаний пользователя
+        if ($request->has('knowledge_ids')) {
+            $user->knowledges()->sync($request->input('knowledge_ids'));
+        }
+
+        return redirect()->route('user.personalArea')->with('success', 'Profile updated successfully.');
+    }
     public function personalArea(): \Illuminate\View\View
     {
-        $positions = Position::all();
+        $positions = Position::where('is_vacancy', true)->get();
         return view('user.personalArea', compact('positions'));
     }
 }

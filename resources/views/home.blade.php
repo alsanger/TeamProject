@@ -8,7 +8,7 @@
                 <p>Welcome, {{ auth()->user()->first_name }} (ID: {{ auth()->user()->id }})</p>
                 <a href="{{ route('user.personalArea') }}" class="btn btn-primary">Personal Area</a>
 {{--                <a href="{{ route('position.workArea') }}" class="btn btn-primary">Work Area</a>--}}
-                <a href="{{ route('position.redirectToPageBasedOnRole', ['id' => auth()->user()->id]) }}" class="btn btn-primary">Work Area</a>
+                <a href="{{ route('position.redirectToPageBasedOnRole') }}" class="btn btn-primary">Work Area</a>
                 <form method="POST" action="{{ route('user.logoutUser') }}" style="display:inline;">
                     @csrf
                     <button type="submit" class="btn btn-danger">Logout</button>

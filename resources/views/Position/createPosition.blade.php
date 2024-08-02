@@ -14,6 +14,7 @@
         <div>
             <div class="labelDiv"><label>Department</label></div>
             <select name="department_id" id="department">
+                <option value="">None</option> <!-- Добавляем пустую опцию -->
                 @foreach($departments as $department)
                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                 @endforeach

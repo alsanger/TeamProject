@@ -92,10 +92,54 @@ class PositionController extends Controller
             $candidateStatus = Status::create(['name' => 'candidate']);
         }
 
-        // Используйте модель для записи данных
         UserPosition::updateOrCreate(
             ['user_id' => $user->id, 'position_id' => $positionId],
             ['status_id' => $candidateStatus->id,]
+        );
+
+        return redirect()->route('workArea.HR_manager');
+    }
+    public function appointStatusSet(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $userId = $request->input('user_id');
+        $user = User::find($userId);
+
+        $positionId = $request->input('position_id');
+
+        $appointStatus = Status::where('name', 'appointed')->first();
+
+        if (!$appointStatus) {
+            $appointStatus = Status::create(['name' => 'appointed']);
+        }
+
+        UserPosition::updateOrCreate(
+            ['user_id' => $user->id, 'position_id' => $positionId],
+            ['status_id' => $appointStatus->id,]
+        );
+
+        Position::updateOrCreate(
+            ['id' => $positionId],
+            ['is_vacancy' => false]
+        );
+
+        return redirect()->route('workArea.HR_manager');
+    }
+    public function rejectStatusSet(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $userId = $request->input('user_id');
+        $user = User::find($userId);
+
+        $positionId = $request->input('position_id');
+
+        $rejectStatus = Status::where('name', 'rejected')->first();
+
+        if (!$rejectStatus) {
+            $rejectStatus = Status::create(['name' => 'rejected']);
+        }
+
+        UserPosition::updateOrCreate(
+            ['user_id' => $user->id, 'position_id' => $positionId],
+            ['status_id' => $rejectStatus->id,]
         );
 
         return redirect()->route('workArea.HR_manager');
@@ -129,9 +173,14 @@ class PositionController extends Controller
     public function redirectToPageBasedOnRole()
     {
         $user = Auth::user();
-        $roles = $user->positions()->with('roles')->get()->pluck('roles.*.name')->flatten()->unique();
-        if ($roles->count() > 1)
+
+        // Загружаем позиции пользователя с статусом 'appointed'
+        $positions = $user->positions()->wherePivot('status_id', Status::where('name', 'appointed')->first()->id)->get();
+        $roles = $positions->flatMap->roles->pluck('name')->unique();
+
+        if ($roles->count() > 1) {
             return redirect()->route('workArea.manyRoles');
+        }
 
         if ($roles->contains('administrator')) {
             return redirect()->route('workArea.administrator');
@@ -185,6 +234,59 @@ class PositionController extends Controller
 
         return redirect()->route('position.redirectToPageBasedOnRole');
     }
+    public function editPosition(Request $request)
+    {
+        $positionId = $request->input('position_id');
+
+        if (!$this->isUserAdmin()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $position = Position::findOrFail($positionId);
+
+        $departments = Department::all();
+        $roles = Role::all();
+
+        return view('position.editPosition', compact('position', 'departments', 'roles'));
+    }
+    public function editPositionPost(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'department_id' => 'nullable|exists:departments,id',
+            'salary' => 'nullable|regex:/^\d+(\.\d{1,2})?$/',
+            'description' => 'nullable|string',
+            'is_vacancy' => 'required|boolean',
+            'roles' => 'nullable|array',
+            'roles.*' => 'exists:roles,id',
+        ]);
+
+        $position = Position::findOrFail($request->input('position_id'));
+        $previousIsVacancy = $position->is_vacancy;
+
+        $position->update([
+            'name' => $validated['name'],
+            'department_id' => $validated['department_id'] ?: null,
+            'salary' => $validated['salary'] ?: null,
+            'description' => $validated['description'] ?: null,
+            'is_vacancy' => $validated['is_vacancy'],
+        ]);
+
+        // Обработка ролей
+        $position->roles()->sync($request->input('roles', [])); // Обновление связанных ролей
+
+        // Если is_vacancy изменилось на 1, обновить status_id в user_positions
+        if ($previousIsVacancy != $validated['is_vacancy'] && $validated['is_vacancy'] == 1) {
+            $statusCandidate = Status::where('name', 'candidate')->first();
+
+            if ($statusCandidate) {
+                UserPosition::where('position_id', $position->id)
+                    ->update(['status_id' => $statusCandidate->id]);
+            }
+        }
+
+        return redirect()->route('position.redirectToPageBasedOnRole');
+    }
     public function createRoleGet(): \Illuminate\View\View
     {
         $roles = Role::all();
@@ -222,5 +324,35 @@ class PositionController extends Controller
 
         return redirect()->route('position.redirectToPageBasedOnRole');
     }
+    private function isUserAdmin(): bool
+    {
+        $user = Auth::user();
 
+        if (!$user) {
+            return false;
+        }
+
+        // Получаем все позиции пользователя, связанные с ролью 'administrator'
+        $adminPositions = $user->positions()
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'administrator');
+            })
+            ->get();
+
+        // Проверяем, имеет ли хотя бы одна из позиций статус 'appointed'
+        foreach ($adminPositions as $position) {
+            $userPosition = UserPosition::where('user_id', $user->id)
+                ->where('position_id', $position->id)
+                ->whereHas('status', function ($query) {
+                    $query->where('name', 'appointed');
+                })
+                ->first();
+
+            if ($userPosition) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

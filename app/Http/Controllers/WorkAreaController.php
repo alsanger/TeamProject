@@ -15,29 +15,16 @@ use Illuminate\Support\Facades\DB;
 
 class WorkAreaController extends Controller
 {
-//    public function index()
-//    {
-//        $user = Auth::user();
-//        $roles = $user->positions()->with('roles')->get()->pluck('roles.*.name')->flatten()->unique();
-//        if ($roles->count() > 1)
-//            return redirect()->route('workArea.manyRoles');
-//
-//        if ($roles->contains('administrator')) {
-//            return redirect()->route('workArea.administrator');
-//        } elseif ($roles->contains('manager')) {
-//            return redirect()->route('workArea.HR_manager');
-//        } elseif ($roles->contains('CEO')) {
-//            return redirect()->route('workArea.CEO');
-//        } else {
-//            return redirect()->route('home')->with('error', 'No valid role found for the user');
-//        }
-//    }
     public function manyRoles(): \Illuminate\View\View
     {
         $user = Auth::user();
-        $roles = $user->positions()->with('roles')->get()->pluck('roles.*.name')->flatten()->unique();
+        $roles = $user->positions()->wherePivot('status_id', Status::where('name', 'appointed')->first()->id)
+            ->get()
+            ->flatMap->roles
+            ->pluck('name')
+            ->unique();
 
-        return view('position.workArea.ManyRoles.ManyRolesMain', compact('roles'));
+        return view('position.workArea.manyRoles.manyRolesMain', compact('roles'));
     }
     public function administrator(): \Illuminate\View\View
     {
@@ -110,16 +97,7 @@ class WorkAreaController extends Controller
 
         return view('position.workArea.administrator.administratorMain', compact('users', 'positions', 'roles'));
     }
-    public function administratorUpdateUser($user_id)
-    {
-        $user = User::findOrFail($user_id);
-        $positions = Position::all();
-        $statuses = Status::all();
-        $knowledges = Knowledge::all();
-
-        return view('position.workArea.administrator.editUser', compact('user', 'positions', 'statuses', 'knowledges'));
-    }
-//    public function administratorUpdateUserPost($user_id)
+//    public function administratorUpdateUser($user_id)
 //    {
 //        $user = User::findOrFail($user_id);
 //        $positions = Position::all();
@@ -128,10 +106,7 @@ class WorkAreaController extends Controller
 //
 //        return view('position.workArea.administrator.editUser', compact('user', 'positions', 'statuses', 'knowledges'));
 //    }
-    public  function administratorUpdatePosition(): \Illuminate\Http\RedirectResponse
-    {
-        return redirect()->route('workArea.administrator')->with('success', 'Position updated successfully');
-    }
+
     public function HR_manager(): \Illuminate\View\View
     {
         $user = Auth::user();

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Status;
 use App\Models\Knowledge;
+use App\Models\UserPosition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -130,15 +131,39 @@ class UserController extends Controller
 
         return redirect()->route('home');
     }
-    public function editUserGet(): \Illuminate\View\View
+    public function editUser(Request $request): \Illuminate\View\View
     {
-        $user = Auth::user();
+        $userId = $request->input('user_id');
+        $redirectUrl = $request->input('redirect_url', 'user.personalArea'); // URL по умолчанию если не указан
+
+        // Проверяем, если передан user_id
+        if ($userId) {
+            // Если пользователь не администратор, проверяем, что редактируется его профиль
+            if (!$this->isUserAdmin()) {
+                if ($userId != Auth::id()) {
+                    abort(403, 'Unauthorized action.');
+                }
+            }
+            // Загружаем пользователя по ID
+            $user = User::findOrFail($userId);
+        } else {
+            // Если user_id не передан, загружаем текущего авторизованного пользователя
+            $user = Auth::user();
+        }
+
         $knowledges = Knowledge::all();
-        return view('user.editUser', compact('user', 'knowledges'));
+        return view('user.editUser', compact('user', 'knowledges', 'redirectUrl'));
     }
+
+    // Метод для обновления данных пользователя
     public function editUserPost(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $user = Auth::user();
+        $userId = $request->input('user_id');
+        $user = User::findOrFail($userId);
+
+        if ($user->id !== Auth::id() && !$this->isUserAdmin()) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $request->validate([
             'login' => 'required|min:3|max:20|unique:users,login,' . $user->id,
@@ -151,7 +176,6 @@ class UserController extends Controller
             'knowledge_ids' => 'array',
         ]);
 
-        // Обновление данных пользователя
         $user->update([
             'login' => $request->input('login'),
             'first_name' => $request->input('first_name'),
@@ -161,18 +185,49 @@ class UserController extends Controller
             'image_link' => $request->input('image_link'),
         ]);
 
-        // Обновление пароля при необходимости
         if ($request->filled('password')) {
             $user->update(['password' => Hash::make($request->input('password'))]);
         }
 
-        // Обновление знаний пользователя
         if ($request->has('knowledge_ids')) {
             $user->knowledges()->sync($request->input('knowledge_ids'));
         }
 
-        return redirect()->route('user.personalArea')->with('success', 'Profile updated successfully.');
+        $redirectUrl = $request->input('redirect_url');
+        return redirect($redirectUrl)->with('success', 'Profile updated successfully.');
     }
+    private function isUserAdmin(): bool
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return false;
+        }
+
+        // Получаем все позиции пользователя, связанные с ролью 'administrator'
+        $adminPositions = $user->positions()
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'administrator');
+            })
+            ->get();
+
+        // Проверяем, имеет ли хотя бы одна из позиций статус 'appointed'
+        foreach ($adminPositions as $position) {
+            $userPosition = UserPosition::where('user_id', $user->id)
+                ->where('position_id', $position->id)
+                ->whereHas('status', function ($query) {
+                    $query->where('name', 'appointed');
+                })
+                ->first();
+
+            if ($userPosition) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function personalArea(): \Illuminate\View\View
     {
         $positions = Position::where('is_vacancy', true)->get();

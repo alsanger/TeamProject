@@ -23,6 +23,7 @@
             <form method="POST" action="{{ route('user.editUserPost') }}">
                 @csrf
                 @method('PUT')
+                <input type="hidden" name="user_id" value="{{ $user->id }}">
 
                 <div class="form-group">
                     <label for="login">Login</label>
@@ -31,12 +32,12 @@
 
                 <div class="form-group">
                     <label for="password">Password (leave blank to keep current password)</label>
-                    <input type="password" class="form-control" id="password" name="password">
+                    <input type="password" class="form-control" id="password" name="password" autocomplete="new-password">
                 </div>
 
                 <div class="form-group" style="display: inline">
                     <label for="password_confirmation">Confirm Password</label>
-                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" autocomplete="new-password">
                 </div>
 
                 <div class="form-group">
@@ -74,6 +75,7 @@
                     @endforeach
                 </div>
 
+                <input type="hidden" name="redirect_url" value="{{ $redirectUrl }}">
                 <button type="submit" class="btn btn-primary">Update Profile</button>
             </form>
         </div>

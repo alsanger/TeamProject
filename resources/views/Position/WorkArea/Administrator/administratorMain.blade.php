@@ -39,11 +39,9 @@
                         <td>{{ $position->is_vacancy ? 'Yes' : 'No' }}</td>
                         <td>{!! nl2br(e($position->roles_list)) !!}</td>
                         <td>
-{{--                            <form method="post" action="{{ route('workArea.administratorUpdatePosition', $position->id) }}" style="display:inline;">--}}
-                            <form style="display:inline;">
+                            <form method="post" action="{{ route('position.editPosition') }}" style="display:inline;">
                                 @csrf
-                                @method('PUT')
-                                <input type="hidden" name="id" value="{{ $position->position_id }}" />
+                                <input type="hidden" name="position_id" value="{{ $position->id }}" />
                                 <button type="submit" class="btn btn-warning">Edit</button>
                             </form>
                         </td>
@@ -90,11 +88,10 @@
                         </td>
                         <td>{{ $user->status_name }}</td>
                         <td>
-{{--                            <form method="post" action="{{ route('workArea.administratorUpdateUser', $user->user_id) }}" style="display:inline;">--}}
-                            <form style="display:inline;">
+                            <form method="post" action="{{ route('user.editUser') }}" style="display:inline;">
                                 @csrf
-                                @method('PUT')
-                                <input type="hidden" name="id" value="{{ $user->user_id }}" />
+                                <input type="hidden" name="user_id" value="{{ $user->user_id }}" />
+                                <input type="hidden" name="redirect_url" value="{{ route('workArea.administrator') }}">
                                 <button type="submit" class="btn btn-warning">Edit</button>
                             </form>
                         </td>

@@ -25,6 +25,7 @@
                     <th>Position</th>
                     <th>Status</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -45,34 +46,39 @@
                             @endif
                         </td>
                         <td>{{ $user->status_name }}</td>
-                        @if($user->status_name == 'seeker')
-                            <td>
+                        <td>
+                            @if($user->status_name == 'seeker')
                                 <form method="post" action="{{ route('position.candidateStatusSet') }}" style="display:inline;">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{ $user->user_id  }}" />
                                     <input type="hidden" name="position_id" value="{{ $user->position_id  }}" />
                                     <button type="submit" class="btn btn-warning">Set candidate status</button>
                                 </form>
-                            </td>
-                        @elseif($user->status_name == 'candidate')
-                            <td>
+                            @elseif($user->status_name == 'candidate')
                                 <form method="POST" action="{{ route('position.goToChat') }}" style="display:inline;">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{ $user->user_id }}">
                                     <input type="hidden" name="position_id" value="{{ $user->position_id }}">
                                     <button type="submit" class="btn btn-info btn-sm">Go to chat</button>
                                 </form>
-                            </td>
-{{--                            <td>--}}
-{{--                                --}}{{--<form method="post" action="{{ route('workArea.administratorUpdateUser', $user->user_id) }}" style="display:inline;">--}}
-{{--                                <form method="POST" action="{{ route('position.goToChat') }}" style="display:inline;">--}}
-{{--                                    @csrf--}}
-{{--                                    <input type="hidden" name="user_id" value="{{ $user->user_id  }}" />--}}
-{{--                                    <input type="hidden" name="position_id" value="{{ $position->id }}">--}}
-{{--                                    <button type="submit" class="btn btn-info btn-sm">Go to chat</button>--}}
-{{--                                </form>--}}
-{{--                            </td>--}}
-                        @endif
+                            @endif
+                        </td>
+                        <td>
+                            <form method="POST" action="{{ route('position.appointStatusSet') }}" style="display:inline;">
+                                @csrf
+                                <input type="hidden" name="user_id" value="{{ $user->user_id }}">
+                                <input type="hidden" name="position_id" value="{{ $user->position_id }}">
+                                <button type="submit" class="btn btn-info btn-sm">Appoint</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="POST" action="{{ route('position.rejectStatusSet') }}" style="display:inline;">
+                                @csrf
+                                <input type="hidden" name="user_id" value="{{ $user->user_id }}">
+                                <input type="hidden" name="position_id" value="{{ $user->position_id }}">
+                                <button type="submit" class="btn btn-info btn-sm">Reject</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

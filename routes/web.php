@@ -25,7 +25,7 @@ Route::get('/user/login', [UserController::class, 'loginUserGet'])->name('user.l
 Route::post('/user/login', [UserController::class, 'loginUserPost'])->name('user.loginUserPost');
 Route::get('/user/register', [UserController::class, 'createUserGet'])->name('user.createUserGet');
 Route::post('/user/register', [UserController::class, 'createUserPost'])->name('user.createUserPost');
-Route::get('/user/edit', [UserController::class, 'editUserGet'])->name('user.editUserGet');
+Route::post('/user/edit', [UserController::class, 'editUser'])->name('user.editUser');
 Route::put('/user/edit', [UserController::class, 'editUserPost'])->name('user.editUserPost');
 Route::post('/user/logout', [UserController::class, 'logoutUser'])->name('user.logoutUser');
 Route::get('/user/personal_area', [UserController::class, 'personalArea'])->name('user.personalArea');
@@ -33,11 +33,13 @@ Route::get('/position/details/{id}', [PositionController::class, 'showPositionDe
 Route::post('/position/seeker_status_set', [PositionController::class, 'seekerStatusSet'])->name('position.seekerStatusSet');
 Route::post('/position/candidate_status_set', [PositionController::class, 'candidateStatusSet'])->name('position.candidateStatusSet');
 Route::post('/position/go_to_chat', [PositionController::class, 'goToChat'])->name('position.goToChat');
-//Route::get('/workArea', [PositionController::class, 'workArea'])->name('position.workArea');
-//Route::get('/position/{id}/redirect', [PositionController::class, 'redirectToPageBasedOnRole'])->name('position.redirectToPageBasedOnRole');
+Route::post('/position/appoint_status_set', [PositionController::class, 'appointStatusSet'])->name('position.appointStatusSet');
+Route::post('/position/reject_status_set', [PositionController::class, 'rejectStatusSet'])->name('position.rejectStatusSet');
 Route::get('/position/redirect', [PositionController::class, 'redirectToPageBasedOnRole'])->name('position.redirectToPageBasedOnRole');
 Route::get('/position/create_position', [PositionController::class, 'createPositionGet'])->name('position.createPositionGet');
 Route::post('/position/create_position', [PositionController::class, 'createPositionPost'])->name('position.createPositionPost');
+Route::post('/position/edit_position', [PositionController::class, 'editPosition'])->name('position.editPosition');
+Route::put('/position/edit_position', [PositionController::class, 'editPositionPost'])->name('position.editPositionPost');
 Route::get('/position/create_department', [PositionController::class, 'createDepartmentGet'])->name('position.createDepartmentGet');
 Route::post('/position/create_department', [PositionController::class, 'createDepartmentPost'])->name('position.createDepartmentPost');
 Route::get('/position/create_role', [PositionController::class, 'createRoleGet'])->name('position.createRoleGet');
@@ -49,9 +51,6 @@ Route::get('/position/work_area/manyRoles', [WorkAreaController::class, 'manyRol
 Route::get('/position/work_area/administrator', [WorkAreaController::class, 'administrator'])->name('workArea.administrator');
 Route::get('/position/work_area/HR_manager', [WorkAreaController::class, 'HR_manager'])->name('workArea.HR_manager');
 Route::get('/position/work_area/CEO', [WorkAreaController::class, 'CEO'])->name('workArea.CEO');
-//Route::put('/position/work_area/administrator_update_user/{id}', [WorkAreaController::class, 'administratorUpdateUser'])->name('workArea.administratorUpdateUser');
-//Route::put('/position/work_area/administrator_update_user/{id}', [WorkAreaController::class, 'administratorUpdateUser'])->name('workArea.administratorUpdateUser');
-//Route::put('/position/work_area/administrator_update_position/{id}', [WorkAreaController::class, 'administratorUpdatePosition'])->name('workArea.administratorUpdatePosition');
 
 
 

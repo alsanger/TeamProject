@@ -163,7 +163,8 @@ class WorkAreaController extends Controller
                 'positions.name as position_name',
                 'statuses.name as status_name',
                 'departments.name as department_name',
-                'position_roles.roles'
+                'position_roles.roles',
+                'user_positions.resume' // Добавление колонки Resume
             )
             ->whereIn('statuses.name', $statuses)
             ->groupBy(
@@ -179,7 +180,8 @@ class WorkAreaController extends Controller
                 'positions.name',
                 'statuses.name',
                 'departments.name',
-                'position_roles.roles'
+                'position_roles.roles',
+                'user_positions.resume' // Добавление колонки Resume в groupBy
             )
             ->get();
 

@@ -20,6 +20,7 @@
                         <th>Phone</th>
                         <th>Image Link</th>
                         <th>Knowledges</th>
+                        <th>Resume</th> <!-- Добавление колонки Resume -->
                         <th>Position</th>
                         <th>Status</th>
                         <th></th>
@@ -37,6 +38,7 @@
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->image_link }}</td>
                             <td>{!! nl2br(e($user->knowledges)) !!}</td>
+                            <td>{{ $user->resume }}</td> <!-- Отображение колонки Resume -->
                             <td>
                                 {{ $user->position_name }}
                                 @if(!is_null($user->department_name))

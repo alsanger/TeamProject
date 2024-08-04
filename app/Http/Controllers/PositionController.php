@@ -18,21 +18,27 @@ class PositionController extends Controller
 {
     public function showPositionDetailsGet($position_id): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $user = Auth::user();
         $position = Position::findOrFail($position_id);
 
-        // Найдите статус для данного пользователя и должности
-        $userPosition = DB::table('user_positions')
-            ->where('user_id', $user->id)
-            ->where('position_id', $position_id)
-            ->first();
-
-        // Если запись найдена, получите статус
+        // Инициализируем переменную $status
         $status = null;
-        if ($userPosition) {
-            $status = DB::table('statuses')
-                ->where('id', $userPosition->status_id)
-                ->value('name');
+
+        // Проверяем авторизацию пользователя
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            // Найдите статус для данного пользователя и должности
+            $userPosition = DB::table('user_positions')
+                ->where('user_id', $user->id)
+                ->where('position_id', $position_id)
+                ->first();
+
+            // Если запись найдена, получите статус
+            if ($userPosition) {
+                $status = DB::table('statuses')
+                    ->where('id', $userPosition->status_id)
+                    ->value('name');
+            }
         }
 
         return view('position.positionDetails', compact('position', 'status'));

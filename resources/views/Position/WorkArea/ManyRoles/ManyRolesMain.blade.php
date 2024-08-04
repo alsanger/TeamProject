@@ -1,6 +1,6 @@
-{{--@extends('layouts.app')--}}
+@extends('layout')
 
-{{--@section('content')--}}
+@section('content')
     <div class="container">
         <h1>Multiple Roles</h1>
         <p>You have multiple roles. Please select one to proceed.</p>
@@ -15,4 +15,4 @@
             @endforeach
         </div>
     </div>
-{{--@endsection--}}
+@endsection

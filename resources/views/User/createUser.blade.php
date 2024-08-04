@@ -1,6 +1,6 @@
-{{--@extends('layout')--}}
+@extends('layout')
 
-{{--@section('content')--}}
+@section('content')
 <form method="get" action="{{ route('user.loginUserGet') }}">
     <button>LOGIN</button>
 </form>
@@ -90,4 +90,4 @@
     document.getElementById("loginInput").addEventListener("input", check);
     document.getElementById("passwordInput").addEventListener("input", check);
 </script>
-{{--@endsection--}}
+@endsection

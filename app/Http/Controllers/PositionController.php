@@ -16,25 +16,6 @@ use Illuminate\Support\Facades\Hash;
 
 class PositionController extends Controller
 {
-//    public function workArea(): \Illuminate\View\View
-//    {
-//        $positions = Position::all();
-//        return view('position.workArea.administrator.administratorMain', compact('positions'));
-//    }
-//    public function redirectToPageBasedOnRole($id)
-//    {
-//        // Получаем пользователя с его позициями и ролями
-//        $user = User::with('positions.roles')->find($id);
-//        if (!$user) {
-//            return redirect()->route('home')->with('error', 'User not found');
-//        }
-//        // Собираем все роли пользователя
-//        $roles = $user->positions->flatMap(function ($position) {
-//            return $position->roles->pluck('name');
-//        })->unique();
-//
-//        return redirect()->route('workArea.administrator');
-//    }
     public function showPositionDetailsGet($position_id): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $user = Auth::user();
@@ -174,9 +155,14 @@ class PositionController extends Controller
     {
         $user = Auth::user();
 
-        // Загружаем позиции пользователя с статусом 'appointed'
-        $positions = $user->positions()->wherePivot('status_id', Status::where('name', 'appointed')->first()->id)->get();
-        $roles = $positions->flatMap->roles->pluck('name')->unique();
+        $appointedStatus = Status::where('name', 'appointed')->first();
+        $roles = $user->positions()
+            ->where('status_id', $appointedStatus->id)
+            ->with('roles')
+            ->get()
+            ->pluck('roles.*.name')
+            ->flatten()
+            ->unique();
 
         if ($roles->count() > 1) {
             return redirect()->route('workArea.manyRoles');
@@ -184,7 +170,7 @@ class PositionController extends Controller
 
         if ($roles->contains('administrator')) {
             return redirect()->route('workArea.administrator');
-        } elseif ($roles->contains('manager')) {
+        } elseif ($roles->contains('HR_manager')) {
             return redirect()->route('workArea.HR_manager');
         } elseif ($roles->contains('CEO')) {
             return redirect()->route('workArea.CEO');

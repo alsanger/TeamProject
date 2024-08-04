@@ -1,7 +1,6 @@
-<div>
-    <div>
-        <a href="{{ route('workArea.administrator') }}" class="btn btn-primary">Back to WORK AREA</a>
-    </div>
+@extends('layout')
+
+@section('content')
     <div>
         <form method="post" action="{{ route('position.createRolePost') }}">
             @csrf
@@ -17,4 +16,4 @@
             </div>
         </form>
     </div>
-</div>
+@endsection

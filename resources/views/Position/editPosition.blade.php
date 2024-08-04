@@ -1,6 +1,6 @@
-{{--@extends('layouts.app')--}}
+@extends('layout')
 
-{{--@section('content')--}}
+@section('content')
     <div class="container">
         <h1>Edit Position</h1>
 
@@ -64,4 +64,4 @@
         </form>
 
     </div>
-{{--@endsection--}}
+@endsection

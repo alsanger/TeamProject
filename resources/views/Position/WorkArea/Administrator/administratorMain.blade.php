@@ -1,13 +1,10 @@
-@auth
+@extends('layout')
+
+@section('content')
+    @auth
     @if($roles->contains('administrator'))
         <div class="user-info">
-            <p>Welcome, {{ auth()->user()->first_name }} (ID: {{ auth()->user()->id }})</p>
-            <a href="{{ route('home') }}" class="btn btn-primary">Back to home page</a>
-            <form method="POST" action="{{ route('user.logoutUser') }}" style="display:inline;">
-                @csrf
-                <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
-            <br>
+
             <!-- New buttons for adding entries -->
             <a href="{{ route('position.createPositionGet') }}" class="btn btn-success">Create Position</a>
             <a href="{{ route('position.createDepartmentGet') }}" class="btn btn-success">Create Department</a>
@@ -102,9 +99,9 @@
         </div>
     @else
         <div class="actions">
-            <p>This page is only available to administrator authorized users</p>
+            <p>You do not have access rights to this page</p>
             <a href="{{ route('user.loginUserGet') }}" class="btn btn-primary">Login</a>
-            <a href="{{ route('user.createUserGet') }}" class="btn btn-secondary">Create New User</a>
         </div>
     @endif
-@endauth
+    @endauth
+@endsection

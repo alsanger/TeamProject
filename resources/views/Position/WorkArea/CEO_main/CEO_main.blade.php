@@ -1,1 +1,5 @@
-CEO_main!!!
+@extends('layout')
+
+@section('content')
+    CEO_main!!!
+@endsection

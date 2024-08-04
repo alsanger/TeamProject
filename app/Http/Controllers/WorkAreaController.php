@@ -18,10 +18,14 @@ class WorkAreaController extends Controller
     public function manyRoles(): \Illuminate\View\View
     {
         $user = Auth::user();
-        $roles = $user->positions()->wherePivot('status_id', Status::where('name', 'appointed')->first()->id)
+
+        $appointedStatus = Status::where('name', 'appointed')->first();
+        $roles = $user->positions()
+            ->where('status_id', $appointedStatus->id)
+            ->with('roles')
             ->get()
-            ->flatMap->roles
-            ->pluck('name')
+            ->pluck('roles.*.name')
+            ->flatten()
             ->unique();
 
         return view('position.workArea.manyRoles.manyRolesMain', compact('roles'));
@@ -29,7 +33,15 @@ class WorkAreaController extends Controller
     public function administrator(): \Illuminate\View\View
     {
         $user = Auth::user();
-        $roles = $user->positions()->with('roles')->get()->pluck('roles.*.name')->flatten()->unique();
+
+        $appointedStatus = Status::where('name', 'appointed')->first();
+        $roles = $user->positions()
+            ->where('status_id', $appointedStatus->id)
+            ->with('roles')
+            ->get()
+            ->pluck('roles.*.name')
+            ->flatten()
+            ->unique();
 
         $users = DB::table('users')
             ->leftJoin('user_positions', 'users.id', '=', 'user_positions.user_id')
@@ -97,20 +109,18 @@ class WorkAreaController extends Controller
 
         return view('position.workArea.administrator.administratorMain', compact('users', 'positions', 'roles'));
     }
-//    public function administratorUpdateUser($user_id)
-//    {
-//        $user = User::findOrFail($user_id);
-//        $positions = Position::all();
-//        $statuses = Status::all();
-//        $knowledges = Knowledge::all();
-//
-//        return view('position.workArea.administrator.editUser', compact('user', 'positions', 'statuses', 'knowledges'));
-//    }
-
     public function HR_manager(): \Illuminate\View\View
     {
         $user = Auth::user();
-        $roles = $user->positions()->with('roles')->get()->pluck('roles.*.name')->flatten()->unique();
+
+        $appointedStatus = Status::where('name', 'appointed')->first();
+        $roles = $user->positions()
+            ->where('status_id', $appointedStatus->id)
+            ->with('roles')
+            ->get()
+            ->pluck('roles.*.name')
+            ->flatten()
+            ->unique();
 
         $statuses = ['seeker', 'candidate'];
         $users = DB::table('users')
@@ -183,7 +193,15 @@ class WorkAreaController extends Controller
     public function CEO(): \Illuminate\View\View
     {
         $user = Auth::user();
-        $roles = $user->positions()->with('roles')->get()->pluck('roles.*.name')->flatten()->unique();
+
+        $appointedStatus = Status::where('name', 'appointed')->first();
+        $roles = $user->positions()
+            ->where('status_id', $appointedStatus->id)
+            ->with('roles')
+            ->get()
+            ->pluck('roles.*.name')
+            ->flatten()
+            ->unique();
 
         return view('position.workArea.CEO.CEO_main', compact('roles'));
     }

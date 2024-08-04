@@ -1,12 +1,9 @@
-{{--@extends('layouts.app')--}}
+@extends('layout')
 
-{{--@section('content')--}}
+@section('content')
     <label>VACANCY DETAILS</label>
     @auth
         <div class="position-info">
-            <p>Welcome, {{ auth()->user()->first_name }} (ID: {{ auth()->user()->id }})</p>
-            <a href="{{ route('home') }}" class="btn btn-primary">Back to home page</a>
-            <a href="{{ route('user.personalArea') }}" class="btn btn-primary">Back to main personal area</a>
             <div class="container">
                 <h1>VACANCY:</h1>
                 <ul>
@@ -43,4 +40,4 @@
             <a href="{{ route('user.loginUserGet') }}" class="btn btn-primary">Login</a>
         </div>
     @endauth
-{{--@endsection--}}
+@endsection

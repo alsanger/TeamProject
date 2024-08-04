@@ -16,12 +16,16 @@ use Illuminate\Support\Facades\Session;
 class UserController extends Controller
 {
     // Метод для отображения главной страницы
+//    public function home(): \Illuminate\View\View
+//    {
+//        $users = User::all(); // Получаем всех пользователей из базы данных
+//        $positions = Position::all();
+//
+//        return view('home', compact('users', 'positions'));
+//    }
     public function home(): \Illuminate\View\View
     {
-        $users = User::all(); // Получаем всех пользователей из базы данных
-        $positions = Position::all();
-
-        return view('home', compact('users', 'positions'));
+        return view('home');
     }
 
     // Метод для входа на страницу loginUser.blade.php через GET

@@ -59,12 +59,29 @@ button
     font-size: var(--normal-font-size);
 }
 
-body
-{
+/*=============== HEADER ===============*/
+header {
+
+    position: fixed; /* Фіксує хедер вгорі сторінки */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Високий z-index, щоб хедер був над іншим контентом */
+    background-color: rgba(255, 255, 255, 0.7); /* Напівпрозорий фон для хедера */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь для додаткової видимості */
+    backdrop-filter: blur(10px); /* Розмиття фону за хедером для покращення читабельності */
+}
+
+/* Перекриття маргіну у body, щоб контент не перекривався хедером */
+body {
+    background-image: url('https://img.freepik.com/free-vector/code-typing-concept-illustration_114360-3866.jpg?t=st=1723168934~exp=1723172534~hmac=e2166487d77d2e7e57d17aff9b2d1b72f6198ab23666614d1f2fada7eb59913b&w=996');
+    margin: 0;
+    padding-top: var(--header-height);
     background-size: cover; /* Змінює розмір зображення для покриття всього фону */
     background-position: center; /* Центрує зображення */
     background-attachment: fixed; /* Фіксує фонове зображення при прокручуванні */
 }
+
 
 /*=============== SHOW LOGIN ===============*/
 /* Стилизувати відображення форми логіна */
@@ -466,4 +483,318 @@ img
     max-height: 3.5rem; /* Встановіть максимальну висоту зображення */
     height: auto; /* Зберігайте пропорції */
     max-width: 100%; /* Зображення не виходитиме за межі контейнера */
+}
+
+
+
+/*=============== REGISTER USER ===============*/
+
+/* Загальний стиль для фону сайту */
+
+
+/* Стилі для контейнера форми */
+.registration-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 2rem;
+    background-color: var(--container-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 2rem; /* Відступ зверху */
+}
+
+/* Заголовок форми */
+.registration-container h2 {
+    font-size: var(--h2-font-size);
+    color: var(--title-color);
+    margin-bottom: 1.5rem;
+}
+
+/* Загальні стилі для полів форми */
+.registration-container input[type="text"],
+.registration-container input[type="password"],
+.registration-container input[type="email"],
+.registration-container input[type="number"],
+.registration-container input[type="url"] {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    color: var(--text-color);
+    background-color: var(--container-color);
+}
+
+/* Мітки полів */
+.registration-container .labelDiv {
+    margin-bottom: 0.5rem;
+    font-weight: var(--font-medium);
+    color: var(--title-color);
+}
+
+/* Стилі для чекбоксів */
+.registration-container input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+/* Стилі для кнопки відправки */
+.registration-container input[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--first-color);
+    color: #fff;
+    font-weight: var(--font-semi-bold);
+    cursor: pointer;
+    transition: background-color .3s;
+}
+
+.registration-container input[type="submit"]:hover {
+    background-color: hsl(230, 75%, 45%);
+}
+
+/* Стилі для помилок */
+.registration-container .errorLabel {
+    color: hsl(0, 75%, 50%);
+    font-size: 0.875rem;
+}
+
+
+/*=============== create-department ===============*/
+
+
+
+/* Стилі для контейнера сторінки */
+.create-department-page {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Кнопка "Back to WORK AREA" */
+.create-department-page .btn-primary {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.3rem;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.create-department-page .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Заголовок та загальний стиль для форми */
+.create-department-page form {
+    margin-top: 1rem;
+}
+
+/* Мітки полів */
+.create-department-page .labelDiv {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Стилі для полів вводу */
+.create-department-page input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+}
+
+/* Стилі для кнопки відправки */
+.create-department-page input[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.3rem;
+    background-color: #28a745;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-department-page input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Стилі для помилок */
+.create-department-page .errorLabel {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+
+/*=============== ADMINISTRATOR MAIN ===============*/
+
+/* Стилі для контейнера інформації про користувача */
+.user-info {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Стилі для кнопок в адмін панелі */
+.user-info .btn-success {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 0.3rem;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 1rem;
+    transition: background-color 0.3s;
+}
+
+.user-info .btn-success:hover {
+    background-color: #218838;
+}
+
+/* Стилі для кнопки "Edit" */
+.user-info .btn-warning {
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background-color: #ffc107;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.user-info .btn-warning:hover {
+    background-color: #e0a800;
+}
+
+/* Стилі для таблиць */
+.user-info .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.user-info .table th,
+.user-info .table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-info .table thead th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+/* Стилі для повідомлення про доступ */
+.actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.actions .btn-primary {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.3rem;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.actions .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+
+/*=============== HOME PAGE ===============*/
+
+/* Стилі для головної сторінки */
+.hero {
+
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}
+
+.hero-content {
+    max-width: 800px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 0.5rem;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.hero-description {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.btn-start {
+    padding: 1rem 2rem;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    font-size: 1.25rem;
+    border-radius: 0.3rem;
+    transition: background-color 0.3s;
+}
+
+.btn-start:hover {
+    background-color: #218838;
+}
+
+.features {
+    padding: 4rem 2rem;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.feature-item {
+    max-width: 400px;
+    margin: 0 auto 2rem;
+}
+
+.feature-item h3 {
+    font-size: 1.75rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.feature-item p {
+    font-size: 1rem;
+    color: #555;
 }

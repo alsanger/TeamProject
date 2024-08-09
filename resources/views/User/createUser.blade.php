@@ -5,7 +5,7 @@
     <button>LOGIN</button>
 </form>
 <br>
-<div>
+<div class="registration-container">
     <form method="post" action="{{ route('user.createUserPost') }}">
         @csrf
         <div>

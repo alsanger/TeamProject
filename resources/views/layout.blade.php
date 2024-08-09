@@ -62,8 +62,6 @@
             @else
                 <!-- Дії для неавторизованих користувачів -->
                 <div class="actions">
-                    <a href="{{ route('user.loginUserGet') }}"  class="btn btn-primary" >Login</a>
-                    <a href="{{ route('user.createUserGet') }}" class="btn btn-secondary">Create New User</a>
                     <!-- Кнопка входу -->
                     <i class="ri-user-line nav__login" id="login-btn"></i>
                 </div>
@@ -91,8 +89,8 @@
         <h2 class="login__title">Log In</h2>
         <div class="login__group">
             <div>
-                <label for="email" class="login__label">Email</label>
-                <input type="text" name="login" value="{{ old('login') }}" id="email" class="login__input" required />
+                <label for="login" class="login__label">Login</label>
+                <input type="text" name="login" value="{{ old('login') }}" id="email" placeholder="Enter your login" class="login__input" required />
             </div>
             @if ($errors->has('login'))
                 <label class="errorSpan">{{ $errors->first('login') }}</label>
@@ -110,7 +108,7 @@
         </div>
         <div>
             <p class="login__signup">
-                You do not have an account? <a href="#">Sign up</a>
+                You do not have an account? <a href="{{ route('user.createUserGet') }}">Sign up</a>
             </p>
             <a href="#" class="login__forgot">
                 You forgot your password

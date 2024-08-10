@@ -213,7 +213,7 @@ button
 
 .form-container form
 {
-    background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+    background: linear-gradient(to right, #c471ed, #12c2e9);
     display: flex;
     flex-direction: column;
     padding:  0 50px;

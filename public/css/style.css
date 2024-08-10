@@ -3,7 +3,7 @@
 
 /*=============== VARIABLES CSS ===============*/
 :root {
-    --header-height: 3.5rem;
+    --header-height: 2.5rem;
 
     /*========== Colors ==========*/
     /* Color mode HSL(hue, saturation, lightness) */
@@ -51,17 +51,14 @@ html
     scroll-behavior: smooth;
 }
 
-body,
-input,
-button
-{
-    font-family: var(--body-font);
-    font-size: var(--normal-font-size);
-}
+
+
+
+
 
 /*=============== HEADER ===============*/
-header {
-
+header
+{
     position: fixed; /* Фіксує хедер вгорі сторінки */
     top: 0;
     left: 0;
@@ -73,45 +70,278 @@ header {
 }
 
 /* Перекриття маргіну у body, щоб контент не перекривався хедером */
-body {
-    background-image: url('https://img.freepik.com/free-vector/code-typing-concept-illustration_114360-3866.jpg?t=st=1723168934~exp=1723172534~hmac=e2166487d77d2e7e57d17aff9b2d1b72f6198ab23666614d1f2fada7eb59913b&w=996');
-    margin: 0;
-    padding-top: var(--header-height);
-    background-size: cover; /* Змінює розмір зображення для покриття всього фону */
-    background-position: center; /* Центрує зображення */
-    background-attachment: fixed; /* Фіксує фонове зображення при прокручуванні */
-}
-
-
-/*=============== SHOW LOGIN ===============*/
-/* Стилизувати відображення форми логіна */
-.show-login {
-    opacity: 1;
-    pointer-events: initial;
-}
-
-.login {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .4s;
-}
-/*=============== HEADER ===============*/
-header
-{
-    position: fixed; /* Фіксує хедер вгорі сторінки */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; /* Високий z-index, щоб хедер був над іншим контентом */
-    background-color: #fff; /* Фон для хедера */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь для додаткової видимості */
-}
-
 body
 {
     margin: 0;
     padding-top: 60px; /* Відступ зверху, щоб контент не перекривався хедером */
+    background-image: url('https://kartinki.pics/uploads/posts/2021-07/1625611981_6-kartinkin-com-p-yaziki-programmirovaniya-fon-krasivie-foni-8.jpg');
+    background-size: cover; /* Або 'contain' для іншого ефекту */
+    background-position: center; /* Центрування зображення */
+    background-repeat: no-repeat; /* Заборонити повторення зображення */
+    background-color: #e2e8f0; /* Фоновий колір на випадок, якщо зображення не завантажується */
+
 }
+
+/*=============== SHOW LOGIN ===============*/
+
+
+
+
+/*=============================== SIGN IN / UP =====================================*/
+
+.social-platform
+{
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+}
+
+.social-icons a
+{
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    background: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 35px;
+    margin: 15px 6px 0;
+    transition: .3s;
+}
+
+.social-icons a:hover
+{
+    background: #ffffff;
+}
+
+.social-icons a i
+{
+    color: #ffffff;
+    font-size: 14px;
+    transition: .3s;
+}
+
+.social-icons a:hover
+{
+    color: rgba(0,0,0, .3);
+}
+
+
+.rememberCheck
+{
+    margin: -5px 0 15px 5px;
+}
+
+.rememberCheck label
+{
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.rememberCheck input
+{
+    accent-color: #f4157e;
+}
+
+button
+{
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background: #f4157e;
+    font-size: 16px;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+}
+
+.input-group input
+{
+    width: 300px;
+    height: 40px;
+    font-size: 16px;
+    color: #ffffff;
+    padding: 0 5px;
+    background: transparent;
+    border: none;
+    outline:  none;
+}
+
+.input-group input:focus~label,
+.input-group input:valid~label
+{
+    top: -5px;
+}
+
+.input-group label
+{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #ffffff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-group
+{
+    position: relative;
+    margin: 10px 0;
+    border-bottom: 2px solid #ffffff;
+}
+
+
+.container
+{
+    background: #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .22);
+    position: relative;
+    overflow: hidden;
+    width: 800px;
+    display: flex;
+    align-items: center;
+    height: 80%;
+    transition: 1s ease-in-out;
+
+}
+
+.form-container form
+{
+    background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+    display: flex;
+    flex-direction: column;
+    padding:  0 50px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+.social-container a
+{
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+}
+
+
+
+
+
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all .6s ease-in-out;
+}
+
+.sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.sign-up-container {
+    left: 0;
+    width: 50%;
+    z-index: 1;
+    opacity: 0;
+}
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform .6s ease-in-out;
+    z-index: 100;
+}
+
+.overlay {
+    background: #ff416c;
+
+    background: linear-gradient(to left, #f64f59, #c471ed, #12c2e9);
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateY(0);
+    transition: transform .6s ease-in-out;
+}
+
+.overlay-panel {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    height: 100%;
+    width: 50%;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform .6s ease-in-out;
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateY(0);
+}
+
+.overlay-left {
+    transform: translateY(-20%);
+}
+
+/* Move signin to right */
+.container.right-panel-active .sign-in-container {
+    transform: translateY(100%);
+}
+
+/* Move overlay to left */
+.container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+/* Bring signup over signin */
+.container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+}
+
+/* Move overlay back to right */
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+/* Bring back the text to center */
+.container.right-panel-active .overlay-left {
+    transform: translateY(0);
+}
+
+/* Same effect for right */
+.container.right-panel-active .overlay-right {
+    transform: translateY(20%);
+}
+
 
 /*=============== NAVIGATION ===============*/
 .nav__menu
@@ -134,29 +364,6 @@ body
     margin-left: 20px;
 }
 
-input,
-button
-{
-    border: none;
-    outline: none;
-}
-
-ul
-{
-    list-style: none;
-}
-
-a
-{
-    text-decoration: none;
-}
-
-img
-{
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
 
 /*=============== REUSABLE CSS CLASSES ===============*/
 .container {
@@ -165,6 +372,7 @@ img
 }
 
 .main {
+
     position: relative;
     height: 100vh;
 }
@@ -209,16 +417,6 @@ img
 }
 
 /*=============== HEADER & NAV ===============*/
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--body-color);
-    box-shadow: 0 2px 16px hsla(230, 75%, 32%, .15);
-    z-index: var(--z-fixed);
-    border-radius: 5px;
-}
 
 .nav {
     height: var(--header-height);
@@ -329,93 +527,26 @@ img
 .show-search .search__form {
     transform: translateY(0);
 }
+/*==================================================*/
 
-/*=============== LOGIN ===============*/
-.login__form,
-.login__group {
-    display: grid;
-}
 
-.login__form {
-    background-color: var(--container-color);
-    padding: 2rem 1.5rem 2.5rem;
-    box-shadow: 0 8px 32px hsla(230, 75%, 15%, .2);
-    border-radius: 1rem;
-    row-gap: 1.25rem;
-    text-align: center;
-    transform: translateY(-1rem);
-    transition: transform .4s;
-}
 
-.login__title {
-    font-size: var(--h2-font-size);
-    color: var(--title-color);
-}
 
-.login__group {
-    row-gap: 1rem;
-}
 
-.login__label {
-    display: block;
-    text-align: initial;
-    color: var(--title-color);
-    font-weight: var(--font-medium);
-    margin-bottom: .25rem;
-}
 
-.login__input {
-    width: 100%;
-    background-color: var(--container-color);
-    border: 2px solid var(--border-color);
-    padding: 1rem;
-    border-radius: .5rem;
-    color: var(--text-color);
-}
 
-.login__input::placeholder {
-    color: var(--text-color);
-}
 
-.login__signup {
-    margin-bottom: .5rem;
-}
 
-.login__signup a {
-    color: var(--first-color);
-}
 
-.login__forgot {
-    display: inline-block;
-    color: var(--first-color);
-    margin-bottom: 1.25rem;
-}
 
-.login__button {
-    display: inline-block;
-    background-color: var(--first-color);
-    width: 100%;
-    color: #fff;
-    font-weight: var(--font-semi-bold);
-    padding: 1rem;
-    border-radius: .5rem;
-    cursor: pointer;
-    transition: box-shadow .4s;
-}
 
-.login__button:hover {
-    box-shadow: 0 4px 24px hsla(230, 75%, 40%, .4);
-}
 
-/* Show login */
-.show-login {
-    opacity: 1;
-    pointer-events: initial;
-}
 
-.show-login .login__form {
-    transform: translateY(0);
-}
+
+
+
+
+
 
 /*=============== BREAKPOINTS ===============*/
 /* For medium devices */
@@ -491,74 +622,6 @@ img
 
 /* Загальний стиль для фону сайту */
 
-
-/* Стилі для контейнера форми */
-.registration-container {
-    max-width: 500px;
-    margin: auto;
-    padding: 2rem;
-    background-color: var(--container-color);
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-top: 2rem; /* Відступ зверху */
-}
-
-/* Заголовок форми */
-.registration-container h2 {
-    font-size: var(--h2-font-size);
-    color: var(--title-color);
-    margin-bottom: 1.5rem;
-}
-
-/* Загальні стилі для полів форми */
-.registration-container input[type="text"],
-.registration-container input[type="password"],
-.registration-container input[type="email"],
-.registration-container input[type="number"],
-.registration-container input[type="url"] {
-    width: 100%;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border: 2px solid var(--border-color);
-    border-radius: 0.5rem;
-    color: var(--text-color);
-    background-color: var(--container-color);
-}
-
-/* Мітки полів */
-.registration-container .labelDiv {
-    margin-bottom: 0.5rem;
-    font-weight: var(--font-medium);
-    color: var(--title-color);
-}
-
-/* Стилі для чекбоксів */
-.registration-container input[type="checkbox"] {
-    margin-right: 0.5rem;
-}
-
-/* Стилі для кнопки відправки */
-.registration-container input[type="submit"] {
-    width: 100%;
-    padding: 1rem;
-    border: none;
-    border-radius: 0.5rem;
-    background-color: var(--first-color);
-    color: #fff;
-    font-weight: var(--font-semi-bold);
-    cursor: pointer;
-    transition: background-color .3s;
-}
-
-.registration-container input[type="submit"]:hover {
-    background-color: hsl(230, 75%, 45%);
-}
-
-/* Стилі для помилок */
-.registration-container .errorLabel {
-    color: hsl(0, 75%, 50%);
-    font-size: 0.875rem;
-}
 
 
 /*=============== create-department ===============*/

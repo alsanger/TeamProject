@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Doctrine\DBAL\Types\Type;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if (!Type::hasType('timestamp')) {
+            Type::addType('timestamp', 'Doctrine\DBAL\Types\DateTimeType');
+        }
     }
 }

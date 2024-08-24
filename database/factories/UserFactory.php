@@ -33,8 +33,8 @@ class UserFactory extends Factory
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'phone' => fake()->phoneNumber(),
-            'image_link' => fake()->imageUrl
-            /*'is_removed'=> fake()->boolean()*/
+            'image_link' => fake()->imageUrl,
+            'is_removed'=> false
         ];
     }
 

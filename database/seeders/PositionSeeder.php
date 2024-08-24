@@ -39,8 +39,7 @@ class PositionSeeder extends Seeder
             'CEO'
         ];
 
-        // Создание данных для вставки в таблицу
-        $positionsData = collect($positions)->map(function ($position) use ($technicalSupportDepartmentId) {
+        foreach ($positions as $position) {
             // Определение department_id
             $departmentId = match ($position) {
                 'Website and Database Administrator' => $technicalSupportDepartmentId,
@@ -48,18 +47,17 @@ class PositionSeeder extends Seeder
                 default => Department::where('name', 'like', "%$position%")->value('id')
             };
 
-            return [
-                'name' => $position,
-                'department_id' => $departmentId,
-                'salary' => fake()->randomFloat(2, 20000, 200000),
-                'description' => fake()->realText(50),
-                'is_vacancy' => fake()->boolean(),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ];
-        })->toArray();
-
-        // Вставка данных в таблицу
-        DB::table('positions')->insert($positionsData);
+            DB::table('positions')->updateOrInsert(
+                ['name' => $position],
+                [
+                    'department_id' => $departmentId,
+                    'salary' => fake()->randomFloat(2, 20000, 200000),
+                    'description' => fake()->realText(50),
+                    'is_vacancy' => fake()->boolean(),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]
+            );
+        }
     }
 }

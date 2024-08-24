@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Department;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DepartmentsSeeder extends Seeder
@@ -13,7 +12,8 @@ class DepartmentsSeeder extends Seeder
      */
     public function run(): void
     {
-        $departments = collect(['Department of Web Development',
+        $departments = collect([
+            'Department of Web Development',
             'Department of Mobile Development',
             'Department of Data Science and AI',
             'Department of Software Engineering',
@@ -28,14 +28,12 @@ class DepartmentsSeeder extends Seeder
             'Department of Robotics and IoT',
             'Department of Artificial Intelligence Ethics',
             'Human Resources Department (HR Department)',
-            'Finance Department ',
-            'Technical Support and Database Management Department '
+            'Finance Department',
+            'Technical Support and Database Management Department'
         ]);
 
         foreach ($departments as $department) {
-            Department::create([
-                'name' => $department
-            ]);
+            Department::firstOrCreate(['name' => $department]);
         }
     }
 }

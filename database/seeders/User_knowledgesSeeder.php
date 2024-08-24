@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Knowledge;
 
 class User_knowledgesSeeder extends Seeder
 {
@@ -13,7 +14,12 @@ class User_knowledgesSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($userId = 1; $userId <= 10; $userId++) {
+        // Получение существующих пользователей и знаний
+        $userIds = User::pluck('id')->toArray();
+        $knowledgeIds = Knowledge::pluck('id')->toArray();
+
+        // Генерация данных
+        foreach ($userIds as $userId) {
             // Генерация случайного количества знаний для каждого пользователя (от 1 до 5)
             $knowledgeCount = rand(1, 5);
 
@@ -21,10 +27,9 @@ class User_knowledgesSeeder extends Seeder
             for ($i = 0; $i < $knowledgeCount; $i++) {
                 DB::table('user_knowledges')->insert([
                     'user_id' => $userId,
-                    'knowledge_id' => rand(1, 25),
+                    'knowledge_id' => $knowledgeIds[array_rand($knowledgeIds)],
                 ]);
             }
         }
-
     }
 }

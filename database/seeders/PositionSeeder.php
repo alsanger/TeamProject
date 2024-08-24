@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Models\Department;
 
 class PositionSeeder extends Seeder
 {
@@ -14,7 +14,11 @@ class PositionSeeder extends Seeder
      */
     public function run(): void
     {
-        $positions = collect([
+        // Получаем ID для департамента "Technical Support and Database Management Department"
+        $technicalSupportDepartmentId = Department::where('name', 'Technical Support and Database Management Department')->value('id');
+
+        // Названия позиций
+        $positions = [
             'Web Development Instructor',
             'Mobile Development Instructor (iOS/Android)',
             'Data Science Instructor',
@@ -33,16 +37,23 @@ class PositionSeeder extends Seeder
             'Accountant',
             'Website and Database Administrator',
             'CEO'
-        ]);
+        ];
 
         // Создание данных для вставки в таблицу
-        $positionsData = $positions->map(function ($position, $index) {
+        $positionsData = collect($positions)->map(function ($position) use ($technicalSupportDepartmentId) {
+            // Определение department_id
+            $departmentId = match ($position) {
+                'Website and Database Administrator' => $technicalSupportDepartmentId,
+                'CEO' => null,
+                default => Department::where('name', 'like', "%$position%")->value('id')
+            };
+
             return [
                 'name' => $position,
-                'department_id' => $index < 17 ? $index + 1 : null,    // department_id от 1 до 16, для CEO null
-                'salary' => fake()->randomFloat(2,20000,200000),
+                'department_id' => $departmentId,
+                'salary' => fake()->randomFloat(2, 20000, 200000),
                 'description' => fake()->realText(50),
-                'is_vacancy'=>fake()->boolean(),
+                'is_vacancy' => fake()->boolean(),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ];

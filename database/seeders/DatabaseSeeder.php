@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
             PositionSeeder::class,
             RolesSeeder::class,
             Position_RolesSeeder::class,
-            StatusSeeder::class,
             User_knowledgesSeeder::class,
         ]);
     }

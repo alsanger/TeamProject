@@ -19,7 +19,6 @@
                         <option value="{{ $department->id }}">{{ $department->name }}</option>
                     @endforeach
                 </select>
-                <a href="{{ route('position.createDepartmentGet') }}" class="btn btn-primary">Create new Department</a>
             </div>
             <div>
                 <div class="labelDiv"><label>Salary</label></div>

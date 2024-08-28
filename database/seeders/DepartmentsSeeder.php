@@ -23,5 +23,6 @@ class DepartmentsSeeder extends Seeder
         foreach ($departments as $department) {
             Department::firstOrCreate(['name' => $department]);
         }
+
     }
 }

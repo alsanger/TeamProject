@@ -47,6 +47,7 @@ class PositionSeeder extends Seeder
                 default => Department::inRandomOrder()->value('id') // Случайное распределение по департаментам
             };
 
+
             // Проверка существования позиции перед созданием
             Position::firstOrCreate(
                 ['name' => $position], // Условие уникальности

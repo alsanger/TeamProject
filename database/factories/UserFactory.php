@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
+
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends Factory<User>
  */
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * The current index for generating sequential logins and passwords.
      */
-    protected static ?string $password;
+    protected static int $index = 1;
 
     /**
      * Define the model's default state.
@@ -23,18 +24,20 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $loginNumber = str_pad(static::$index++, 2, '0', STR_PAD_LEFT); // Generates 01, 02, etc.
+        $password = 'pas_' . $loginNumber;
+
         return [
-            'login' => fake()->userName(),
-            'email' => fake()->unique()->safeEmail(),
+            'login' => 'login_' . $loginNumber,
+            'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => 'password',        // простой незашифрованный пароль
-            /*'password' => static::$password ??= Hash::make('password'),*/
+            'password' => Hash::make($password), // Hash the generated password
             'remember_token' => Str::random(10),
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
-            'phone' => fake()->phoneNumber(),
-            'image_link' => fake()->imageUrl
-            /*'is_removed'=> fake()->boolean()*/
+            'first_name' => $this->faker->unique()->firstName(),
+            'last_name' => $this->faker->unique()->lastName(),
+            'phone' => $this->faker->unique()->phoneNumber(),
+            'image_link' => $this->faker->imageUrl(),
+            'is_removed' => false
         ];
     }
 

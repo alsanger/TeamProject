@@ -1,10 +1,11 @@
 <?php
 
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Knowledge;
+
 class KnowledgesSeeder extends Seeder
 {
     /**
@@ -12,7 +13,7 @@ class KnowledgesSeeder extends Seeder
      */
     public function run(): void
     {
-        $knowledges=collect([
+        $knowledges = collect([
             'C++',
             'C#',
             'PHP',
@@ -33,24 +34,26 @@ class KnowledgesSeeder extends Seeder
             'MySQL',
             'PostgresSQL',
             'MongoDB',
-            'Version control(Git)',
+            'Version control (Git)',
             'Docker',
             'Kubernetes',
             'Azure',
-            'Postman']);
+            'Postman'
+        ]);
 
-        $description=collect([
+        $descriptions = collect([
             'Expert knowledge with extensive professional experience in real-world projects',
             'Proficient with several years of hands-on experience in various applications',
             'Intermediate understanding with practical experience in medium-sized projects',
             'Familiar with basic concepts and some experience in personal or academic projects',
-            'Beginner, with theoretical knowledge and limited hands-on experience']);
+            'Beginner, with theoretical knowledge and limited hands-on experience'
+        ]);
 
         foreach ($knowledges as $knowledge) {
-            Knowledge::create([
-                'name' => $knowledge,
-                'description' => $description->random()
-            ]);
+            Knowledge::firstOrCreate(
+                ['name' => $knowledge], // Условие поиска
+                ['description' => $descriptions->random()] // Значения для создания, если запись не найдена
+            );
         }
     }
 }

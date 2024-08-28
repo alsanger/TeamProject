@@ -1,11 +1,11 @@
 <?php
-
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Models\Department;
+use App\Models\Position;
 
 class PositionSeeder extends Seeder
 {
@@ -14,7 +14,11 @@ class PositionSeeder extends Seeder
      */
     public function run(): void
     {
-        $positions = collect([
+        // Получаем ID для департамента "Technical Support and Database Management Department"
+        $technicalSupportDepartmentId = Department::where('name', 'Technical Support and Database Management Department')->value('id');
+
+        // Названия позиций
+        $positions = [
             'Web Development Instructor',
             'Mobile Development Instructor (iOS/Android)',
             'Data Science Instructor',
@@ -33,22 +37,29 @@ class PositionSeeder extends Seeder
             'Accountant',
             'Website and Database Administrator',
             'CEO'
-        ]);
+        ];
 
-        // Создание данных для вставки в таблицу
-        $positionsData = $positions->map(function ($position, $index) {
-            return [
-                'name' => $position,
-                'department_id' => $index < 17 ? $index + 1 : null,    // department_id от 1 до 16, для CEO null
-                'salary' => fake()->randomFloat(2,20000,200000),
-                'description' => fake()->realText(50),
-                'is_vacancy'=>fake()->boolean(),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ];
-        })->toArray();
+        foreach ($positions as $position) {
+            // Определение department_id
+            $departmentId = match ($position) {
+                'Website and Database Administrator' => $technicalSupportDepartmentId,
+                'CEO' => null,
+                default => Department::inRandomOrder()->value('id') // Случайное распределение по департаментам
+            };
 
-        // Вставка данных в таблицу
-        DB::table('positions')->insert($positionsData);
+
+            // Проверка существования позиции перед созданием
+            Position::firstOrCreate(
+                ['name' => $position], // Условие уникальности
+                [
+                    'department_id' => $departmentId,
+                    'salary' => fake()->randomFloat(2, 20000, 200000),
+                    'description' => fake()->realText(50),
+                    'is_vacancy' => fake()->boolean(),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]
+            );
+        }
     }
 }

@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class RolesSeeder extends Seeder
@@ -13,15 +12,15 @@ class RolesSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles=collect([
+        $roles = collect([
             'administrator',
             'HR_manager',
-            'CEO' // Chief Executive Officer(Главный исполнительный директор)
+            'CEO' // Chief Executive Officer
         ]);
 
-        foreach($roles as $role){
-            Role::create([
-                'name'=>$role
+        foreach ($roles as $role) {
+            Role::updateOrCreate([
+                'name' => $role
             ]);
         }
     }

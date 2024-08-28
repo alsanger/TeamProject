@@ -1,11 +1,11 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Department;
+use App\Models\Position;
 
 class PositionSeeder extends Seeder
 {
@@ -44,11 +44,12 @@ class PositionSeeder extends Seeder
             $departmentId = match ($position) {
                 'Website and Database Administrator' => $technicalSupportDepartmentId,
                 'CEO' => null,
-                default => Department::where('name', 'like', "%$position%")->value('id')
+                default => Department::inRandomOrder()->value('id') // Случайное распределение по департаментам
             };
 
-            DB::table('positions')->updateOrInsert(
-                ['name' => $position],
+            // Проверка существования позиции перед созданием
+            Position::firstOrCreate(
+                ['name' => $position], // Условие уникальности
                 [
                     'department_id' => $departmentId,
                     'salary' => fake()->randomFloat(2, 20000, 200000),

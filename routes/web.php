@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+use App\Http\Controllers\AuthController;
+
+Route::get('/signin', [AuthController::class, 'showSignIn'])->name('user.loginUserGet');
+Route::get('/signup', [AuthController::class, 'showSignUp'])->name('user.createUserGet');
 
 Route::get('/', [UserController::class, 'home'])->name('home');
 Route::get('/user/login', [UserController::class, 'loginUserGet'])->name('user.loginUserGet');

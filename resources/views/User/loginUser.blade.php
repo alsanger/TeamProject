@@ -16,7 +16,7 @@
                 @endif
             </div>
             <div>
-                <div class="labelDiv"><label>Password</label></div>
+                <div class="labelDiv"><label>Password1</label></div>
                 <input type="password" name="password" required/>
                 @if ($errors->has('password'))
                     <label class="errorSpan">{{ $errors->first('password') }}</label>

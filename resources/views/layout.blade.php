@@ -52,9 +52,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-        .nav-logo {
-            margin-right: 15px;
-        }
         nav a {
             color: #000;
             text-decoration: none;
@@ -131,6 +128,8 @@
 
 <nav>
     <a href="{{ route('home') }}" class="btn btn-primary">Home</a>
+    <a href="#about" class="btn btn-secondary">About project</a>
+    <a href="#company" class="btn btn-success">Company</a>
     @auth
         <a href="{{ route('user.personalArea') }}" class="btn btn-primary">Personal Area</a>
         <a href="{{ route('position.redirectToPageBasedOnRole') }}" class="btn btn-primary">Work Area</a>
@@ -144,7 +143,7 @@
     <div class="container layout-container">
         @auth
             <div class="user-info">
-                <p>Welcome, {{ auth()->user()->first_name }} </p>
+                <p>Welcome, {{ Auth::check() ? Auth::user()->first_name : 'Guest' }} </p>
                 <form method="POST" action="{{ route('user.logoutUser') }}" style="display:inline;">
                     @csrf
                     <button type="submit" class="btn btn-primary">Logout</button>

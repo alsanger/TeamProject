@@ -10,17 +10,14 @@
         <img src="{{ asset('images/businesspeopl.png') }}" alt="Business People">
     </div>
 
-    <!-- Секция About -->
-    <section id="about" class="section">
-        <h2>About</h2>
-        <p>This is the content of the About page. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </section>
-
     <!-- Секция Company -->
     <section id="company" class="section">
         <h2>Company</h2>
         <p>This is the content of the Company page. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </section>
+
+    <!-- Вставляем содержимое из about.blade.php -->
+    @include('about')
 
 @endsection
 

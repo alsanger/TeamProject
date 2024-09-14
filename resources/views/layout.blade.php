@@ -51,6 +51,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            flex-wrap: wrap; /* Позволяет перенос элементов на новую строку */
         }
         nav a {
             color: #000;
@@ -71,6 +72,32 @@
             background: #DCDCDC;
             color: #000;
             border-radius: 10px;
+        }
+
+        /* Стили для кнопки Logout */
+        .btn-logout {
+            color: #000; /* Цвет текста кнопки */
+            text-decoration: none; /* Удаление подчеркивания текста (для ссылки) */
+            padding: 0 15px; /* Отступы по горизонтали (справа и слева) */
+            font-size: 15px; /* Размер шрифта текста кнопки */
+            font-weight: bold; /* Жирное начертание шрифта */
+            font-family: Apercu, sans-serif; /* Шрифт текста кнопки */
+            display: inline-block; /* Отображение элемента как строчный блок для возможности задания размеров и отступов */
+            margin-top: 9px; /* Отступ сверху в 20 пикселей */
+            line-height: 40px; /* Высота строки для вертикального центрирования текста внутри кнопки */
+            width: 150px; /* Ширина кнопки */
+            text-align: center; /* Выравнивание текста по центру кнопки */
+            border-radius: 5px; /* Радиус скругления углов кнопки */
+            border: none; /* Удаление границы кнопки */
+            background-color: #E9E9E9; /* Цвет фона кнопки */
+            box-sizing: border-box; /* Включение отступов и границ в общую ширину и высоту элемента */
+            height: 40px; /* Пример фиксированной высоты кнопки */
+        }
+
+        .btn-logout:hover {
+            background: #DCDCDC; /* Цвет фона кнопки при наведении курсора */
+            color: #000; /* Цвет текста кнопки при наведении курсора */
+            border-radius: 10px; /* Радиус скругления углов кнопки при наведении (чтобы создать эффект визуального изменения) */
         }
 
         .search-container {
@@ -97,13 +124,27 @@
             margin-left: 10px;
         }
 
-        .layout-container .user-info, .layout-container .actions {
+        .layout-container {
             display: flex;
             align-items: center;
             gap: 10px;
             justify-content: flex-end;
             padding: 10px;
             border: none;
+            flex-wrap: nowrap; /* Отключение переноса элементов на новую строку */
+            margin: 0; /* Удаление внешних отступов */
+        }
+
+        /* Стили для приветственного сообщения */
+        .welcome-message {
+            font-size: 17px; /* Размер шрифта текста приветственного сообщения */
+            color: #333; /* Цвет текста (темно-серый) */
+            font-family: Apercu, sans-serif; /* Шрифт текста сообщения */
+            margin: 2px 2px; /* Отступы сверху и снизу. Можно увеличить для лучшего визуального восприятия */
+            text-align: center; /* Выравнивание текста по центру внутри блока */
+            display: flex; /* Использование flexbox для выравнивания содержимого по горизонтали и вертикали */
+            align-items: center; /* Вертикальное выравнивание элементов внутри блока по центру */
+            gap: 5px; /* Расстояние между элементами внутри блока (например, между текстом и кнопкой) */
         }
     </style>
 </head>
@@ -128,8 +169,8 @@
 
 <nav>
     <a href="{{ route('home') }}" class="btn btn-primary">Home</a>
-    <a href="#about" class="btn btn-secondary">About project</a>
     <a href="#company" class="btn btn-success">Company</a>
+    <a href="#about" class="btn btn-secondary">About project</a>
     @auth
         <a href="{{ route('user.personalArea') }}" class="btn btn-primary">Personal Area</a>
         <a href="{{ route('position.redirectToPageBasedOnRole') }}" class="btn btn-primary">Work Area</a>
@@ -140,21 +181,21 @@
         <img src="{{ asset('images/free-icon-search.png') }}" alt="Search Icon">
     </div>
 
-    <div class="container layout-container">
-        @auth
-            <div class="user-info">
-                <p>Welcome, {{ Auth::check() ? Auth::user()->first_name : 'Guest' }} </p>
+    @auth
+        <div class="layout-container">
+            <div class="welcome-message">
+                <p>Welcome, {{ Auth::check() ? Auth::user()->first_name : 'Guest' }}</p>
                 <form method="POST" action="{{ route('user.logoutUser') }}" style="display:inline;">
                     @csrf
-                    <button type="submit" class="btn btn-primary">Logout</button>
+                    <button type="submit" class="btn-logout">Logout</button>
                 </form>
             </div>
-        @else
-            <div class="actions">
-                <a href="{{ route('user.loginUserGet') }}" class="btn btn-primary">Login</a>
-            </div>
-        @endauth
-    </div>
+        </div>
+    @else
+        <div class="actions">
+            <a href="{{ route('user.loginUserGet') }}" class="btn btn-primary">Login</a>
+        </div>
+    @endauth
 </nav>
 
 <div id="content">

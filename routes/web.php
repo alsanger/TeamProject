@@ -52,5 +52,5 @@ Route::get('/position/work_area/administrator', [WorkAreaController::class, 'adm
 Route::get('/position/work_area/HR_manager', [WorkAreaController::class, 'HR_manager'])->name('workArea.HR_manager');
 Route::get('/position/work_area/CEO', [WorkAreaController::class, 'CEO'])->name('workArea.CEO');
 
-Route::get('/about', function () {return view('about');});
 Route::get('/company', function () {return view('company');});
+Route::get('/home', function () {return view('home');});

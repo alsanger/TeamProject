@@ -1,0 +1,537 @@
+/* Сброс стилей (Normalize.css) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+form,
+form input,
+form textarea,
+form select,
+form button {
+    font-size: 16px; /* Задайте желаемый размер шрифта */
+}
+
+
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+    margin: 10px;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+}
+
+/* Заголовок 2 */
+h2 {
+    font-size: 1.25rem;
+    color: #333;
+    margin: 10px;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+}
+
+input {
+    color: #333;
+    font-family: 'Georgia', serif;
+}
+
+/* Стили для общей страницы */
+body {
+    background: url('../images/background.png') no-repeat center center/cover #C9C8C7;
+    font-size: 16px; /* Базовый размер шрифта для лучшего контроля */
+}
+
+/* Верхняя панель */
+.layout-container {
+    background-color: rgba(225, 225, 225, 0.9);
+    padding: 10px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 60px;
+    overflow-x: auto;
+}
+
+/* Текстовое оформление пользователя */
+.layout-container .user-info p {
+    font-size: 16px;
+    color: #333;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+}
+
+/* Ссылки и кнопки в верхней панели */
+.layout-container a,
+.layout-container button {
+    text-decoration: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 14px;
+    color: white;
+    background-color: #8796a0; /* Синий цвет */
+}
+
+.layout-container a:hover,
+.layout-container button:hover {
+    background-color: #8796a0; /* Темный синий при наведении */
+}
+
+/* Дополнительные стили кнопок действий */
+.layout-container .actions a,
+.layout-container .actions button {
+    background-color: #8796a0; /* Серо-синий цвет */
+}
+
+.layout-container .actions a:hover,
+.layout-container .actions button:hover {
+    background-color: #6d7d8b; /* Темный серо-синий при наведении */
+}
+
+/* Оформление для горизонтальной линии */
+hr {
+    margin-top: 60px; /* Смещение вниз после верхней панели */
+    border-color: #ddd;
+    border-style: solid; /* Обеспечиваем отображение линии везде */
+}
+
+/* Контент страницы */
+#content {
+    padding: 20px;
+    margin-top: 60px;
+}
+
+/* Стили формы */
+.form-container {
+    width: 43%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Основная область формы */
+.form-area {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 20px;
+
+}
+
+/* Область ввода данных и Knowledges */
+.form-block {
+    display: flex;
+    width: 70%;
+}
+
+/* Колонки */
+.form-column {
+    width: 66%;
+    margin-right: 4%;
+}
+
+/* Область Knowledges */
+.knowledges-column {
+    width: 30%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Поля ввода данных */
+.form-control {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Поля ввода в Knowledges */
+.knowledges-column .form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Выравнивание по левому краю и стиль для чекбоксов */
+.knowledges-column .form-check input {
+    margin-right: 10px;
+}
+
+.knowledges-column .form-check label {
+    flex: 1;
+    text-align: left;
+}
+
+/* Кнопка */
+.btn {
+    background-color: #8796a0;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+.btn-primary {
+    background-color: #8796a0;
+}
+
+.btn-primary:hover {
+    background-color: #6d7d8b;
+}
+
+/* Стиль для блока авторизации */
+.login-form {
+    background-color: rgba(225, 225, 225, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Стиль для текста в блоке */
+.hero-text {
+    background-color: rgba(225, 225, 225, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    position: absolute;
+    top: 100px;
+    left: 20px;
+}
+
+/* Заголовок 1 */
+.hero-text h1 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+}
+
+/* Заголовок 2 */
+.hero-text h2 {
+    font-size: 1.25rem;
+    color: #333;
+    margin: 10px 0 0;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+}
+
+/* Дополнительные стили для форм */
+.form-container {
+    width: 43%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: #f5f5f5; /* Цвет фона страницы */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Лёгкая тень для выделения */
+}
+
+/* Основная область формы */
+.form-area {
+    width: 100%; /* Ширина формы занимает 100% от ширины контейнера */
+    max-width: 1200px; /* Максимальная ширина для больших экранов */
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.9); /* Полупрозрачный фон */
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* Область ввода данных и Knowledges */
+.form-block {
+    display: flex;
+    width: 100%;
+}
+
+/* Колонки */
+.form-column {
+    width: 66%; /* Ширина для основной колонки */
+    margin-right: 4%; /* Отступ между колонками */
+}
+
+/* Область Knowledges */
+.knowledges-column {
+    width: 30%; /* Ширина для колонки Knowledges */
+    max-height: 80vh; /* Максимальная высота для списка чекбоксов */
+    overflow-y: auto; /* Прокрутка по вертикали, если содержимое не помещается */
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон для области Knowledges */
+    border-radius: 5px; /* Закругление углов */
+    border: 1px solid #ccc; /* Рамка для области Knowledges */
+}
+
+/* Поля ввода данных */
+.form-control {
+    width: 100%; /* Поля ввода данных заполняют колонку */
+    background: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый фон */
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px; /* Отступ между полями */
+}
+
+/* Поля ввода в Knowledges */
+.knowledges-column .form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+/* Выравнивание по левому краю и стиль для чекбоксов */
+.knowledges-column .form-check input {
+    margin-right: 10px;
+}
+
+.knowledges-column .form-check label {
+    flex: 1;
+    text-align: left;
+}
+
+/* Стиль для блока авторизации */
+.login-form {
+    background-color: rgba(225, 225, 225, 0.9); /* Полупрозрачный фон для формы входа */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Стиль для текста в блоке */
+.hero-text {
+    background-color: rgba(225, 225, 225, 0.8); /* Полупрозрачный фон для текста */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    position: absolute;
+    top: 100px;
+    left: 20px;
+}
+
+.login-text {
+    background-color: rgba(225, 225, 225, 0.8); /* Полупрозрачный фон для текста */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-width: 400px;
+    position: absolute;
+    top: 100px;
+    left: 20px;
+}
+
+/* Заголовок 1 */
+.hero-text h1 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+}
+
+/* Заголовок 2 */
+.hero-text h2 {
+    font-size: 1.25rem;
+    color: #333;
+    margin: 10px 0 0;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+}
+
+.personal-area-container {
+    padding: 20px;
+    background-color: rgba(225, 225, 225, 0.8); /* Полупрозрачный светлый фон */
+    border-radius: 8px;
+    width: 90%;
+    margin: auto;
+}
+
+.section-title {
+    font-size: 2rem;
+    color: #333;
+    margin-top: 30px;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+}
+
+.vacancies-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(225, 225, 225, 0.8); /* Применение фона к таблице */
+}
+
+.vacancies-table thead {
+    background-color: #333;
+    color: #fff;
+}
+
+.vacancies-table th, .vacancies-table td {
+    padding: 10px;
+    border: 1px solid #667;
+    text-align: center;
+}
+
+.vacancies-table th {
+    font-weight: bold;
+}
+
+.vacancies-table td {
+    color: #333;
+}
+
+.vacancy-name {
+    font-weight: bold;
+}
+
+.details-form {
+    margin: 0;
+}
+
+/*.btn-info {*/
+/*    background-color: #8796a0;*/
+/*    border-color: #8796a0;*/
+/*    color: #fff;*/
+/*}*/
+
+/*.btn-info.btn-sm {*/
+/*    padding: 5px 10px;*/
+/*    font-size: 0.875rem;*/
+/*}*/
+
+.text-left {
+    text-align: left;
+}
+
+
+/* Основной контейнер для деталей вакансии */
+.position-details {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(249, 249, 249, 0.8); /* Полупрозрачный фон */
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Заголовок страницы */
+.position-details h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    color: #333; /* Темный текст для заголовка */
+    background-color: rgba(211, 211, 211, 0.5); /* Полупрозрачный светло-серый фон */
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для списка вакансий */
+.position-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.position-info li {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.position-info h2 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Стили для формы */
+.position-info form {
+    margin-top: 20px;
+}
+
+.position-info textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-sizing: border-box; /* Для учета паддинга в ширине */
+}
+
+/* Стили для кнопок */
+.position-info .btn {
+    background-color: #8796a0; /* Основной цвет кнопок */
+    color: #fff; /* Белый текст на кнопках */
+    border: none; /* Без границы */
+    padding: 10px 15px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.position-info .btn:hover {
+    background-color: #6d7d8b; /* Темный серо-синий при наведении */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для ссылок в формах */
+.position-info a {
+    color: #8796a0; /* Основной цвет ссылок */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.position-info a:hover {
+    text-decoration: underline;
+}
+
+.btn-hr {
+    width: 100%;
+    margin: 3px;
+}
+
+
+
+
